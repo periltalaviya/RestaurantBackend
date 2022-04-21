@@ -4,11 +4,20 @@ const bodyparser = require('body-parser');
 const cors = require('cors');
 const app = express();
 require('dotenv/config')
+var port = process.env.PORT || 3100;
+
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Accept, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(cors())
-app.listen(3100)
+// app.listen(3100)
 
 const roleRoutes = require('./app/routes/role.routes')
 const statusRoutes = require('./app/routes/status.routes')
@@ -33,3 +42,8 @@ app.use('/order-food', orderfoodRouter)
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => {
     console.log('connected');
 })
+
+app.set('port', port);
+app.listen(port, () => {
+    console.log(`App running on port ${port}.`);
+});
