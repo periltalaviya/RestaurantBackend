@@ -27,6 +27,7 @@ exports.getBookTable = async (req, res) => {
     try {
         const bookTable = await BookTable.find()
             .populate({ path: 'status_id', select: ['status_name'] })
+            .populate({ path: 'user_id' })
 
         //send response 
         return responses.successResponse(

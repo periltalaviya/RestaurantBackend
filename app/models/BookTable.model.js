@@ -2,15 +2,15 @@ const mongoose = require('mongoose')
 
 const BookTableSchema = mongoose.Schema({
     booking_date: {
-        type: Date,
+        type: String,
         require: true
     },
     booking_time: {
-        type: Date,
+        type: String,
         require: true
     },
     approx_arrive_time: {
-        type: Date,
+        type: String,
         require: true
     },
     no_of_persons: {
@@ -20,6 +20,11 @@ const BookTableSchema = mongoose.Schema({
     comments: {
         type: String,
         require: true
+    },
+    user_id: {
+        type: mongoose.Types.ObjectId,
+        require: true,
+        ref:'Users'
     },
     status_id: {
         type: mongoose.Types.ObjectId,
